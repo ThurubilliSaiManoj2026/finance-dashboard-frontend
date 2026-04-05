@@ -1,0 +1,200 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   src/index.css
+   Global stylesheet — Tailwind layers + glassmorphism + full theme consistency.
+
+   Theme strategy:
+     Light mode → entire UI is light (sidebar + content, no mixed themes)
+     Dark mode  → entire UI is dark  (sidebar + content)
+     Glassmorphism applied to cards and panels in both modes.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base Layer ─────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /*
+    Page background: a subtle green-tinted gradient mesh in light mode so that
+    the glassmorphism cards have something interesting to blur against.
+    Dark mode: deep navy radial gradient.
+  */
+  body {
+    font-family: 'Outfit', system-ui, sans-serif;
+    @apply antialiased text-slate-900;
+    background: linear-gradient(
+      135deg,
+      #f0fdf4 0%,
+      #f8fafc 35%,
+      #ecfdf5 65%,
+      #f1f5f9 100%
+    );
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    @apply text-slate-100;
+    background: radial-gradient(
+      ellipse at top left,
+      #1e293b 0%,
+      #0f172a 55%,
+      #080d1a 100%
+    );
+    background-attachment: fixed;
+  }
+
+  /* Global focus ring — emerald, not violet */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-emerald-500 ring-offset-2;
+  }
+
+  /* All monetary values use tabular monospace for perfect column alignment */
+  .font-money {
+    font-family: 'DM Mono', ui-monospace, monospace;
+  }
+}
+
+/* ── Component Layer ────────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── SIDEBAR BACKGROUND ── fully theme-aware, no hardcoded dark ────────── */
+  /* Light mode: white glass panel with a faint emerald border */
+  .sidebar-bg {
+    background: rgba(255, 255, 255, 0.90);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid rgba(16, 185, 129, 0.12);
+  }
+
+  /* Dark mode: deep navy gradient glass */
+  .dark .sidebar-bg {
+    background: linear-gradient(
+      160deg,
+      rgba(13, 17, 23, 0.97) 0%,
+      rgba(22, 27, 34, 0.97) 40%,
+      rgba(26, 31, 46, 0.97) 100%
+    );
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* ── NAV ITEMS ──────────────────────────────────────────────────────────── */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium;
+    @apply transition-all duration-200 cursor-pointer select-none;
+  }
+
+  /* Inactive: dark slate in light, muted in dark */
+  .nav-item-inactive {
+    color: #64748b;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  .nav-item-inactive:hover {
+    color: #0f172a;
+    background-color: rgba(16, 185, 129, 0.09);
+  }
+  .dark .nav-item-inactive {
+    color: #8b949e;
+  }
+  .dark .nav-item-inactive:hover {
+    color: #f1f5f9;
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Active: emerald in light, white in dark */
+  .nav-item-active {
+    color: #059669;
+    background-color: rgba(16, 185, 129, 0.1);
+    font-weight: 600;
+  }
+  .dark .nav-item-active {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.13);
+  }
+
+  /* ── CARDS — Glassmorphism ──────────────────────────────────────────────── */
+  /*
+    .card is used both directly in JSX (via Card.tsx component)
+    and by .metric-card below.
+    Both light and dark variants use backdrop-blur + semi-transparency.
+  */
+  .card {
+    background: rgba(255, 255, 255, 0.76);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.04),
+      0 1px 4px rgba(0, 0, 0, 0.03);
+    border-radius: 1rem;
+  }
+
+  .dark .card {
+    background: rgba(30, 41, 59, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+  }
+
+  /* Metric card = card + padding + lift-on-hover */
+  .metric-card {
+    @apply card p-5;
+    transition: box-shadow 0.3s ease, transform 0.25s ease;
+  }
+  .metric-card:hover {
+    box-shadow:
+      0 10px 36px rgba(0, 0, 0, 0.08),
+      0 2px 8px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+  }
+  .dark .metric-card:hover {
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45);
+    transform: translateY(-1px);
+  }
+}
+
+/* ── Utilities Layer ────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Staggered animation delays — cascade entrance effects */
+  .delay-50  { animation-delay:  50ms; }
+  .delay-100 { animation-delay: 100ms; }
+  .delay-150 { animation-delay: 150ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-250 { animation-delay: 250ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-350 { animation-delay: 350ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  .truncate-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ── Custom Scrollbar ───────────────────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+.dark * {
+  scrollbar-color: #334155 transparent;
+}
+::-webkit-scrollbar             { width: 5px; height: 5px; }
+::-webkit-scrollbar-track       { background: transparent; }
+::-webkit-scrollbar-thumb       { background-color: #e2e8f0; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background-color: #cbd5e1; }
+.dark ::-webkit-scrollbar-thumb       { background-color: #334155; }
+.dark ::-webkit-scrollbar-thumb:hover { background-color: #475569; }
+
+/* ── Recharts Overrides ─────────────────────────────────────────────────────── */
+.recharts-surface                { overflow: visible; }
+.recharts-responsive-container   { font-family: 'Outfit', system-ui, sans-serif; }
