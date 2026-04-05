@@ -1,4 +1,4 @@
-# Finance Dashboard — Zorvyn FinTech Frontend Intern Assignment
+# Finance Dashboard — Zorvyn FinTech Frontend Intern Assessment
 
 A production-grade financial dashboard interface built as part of the Zorvyn FinTech Frontend Developer Intern screening assessment. The application enables users to track income, expenses, and spending patterns through a clean, fully responsive interface that meets fintech product UI standards.
 
