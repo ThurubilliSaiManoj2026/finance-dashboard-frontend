@@ -8,7 +8,7 @@ A production-grade financial dashboard interface built as part of the Zorvyn Fin
 
 | Resource | Link |
 |---|---|
-| Live Demo | *(Add Vercel URL after deployment)* |
+| Live Demo | https://finance-dashboard-frontend-lovat.vercel.app |
 
 ---
 
