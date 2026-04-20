@@ -8,8 +8,6 @@ dist/
 dist-ssr/
 
 # Environment variables (never commit secrets)
-.env
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local
@@ -26,7 +24,6 @@ Thumbs.db
 *.sln
 *.sw?
 .idea/
-.vscode/settings.json
 
 # TypeScript build info cache
 *.tsbuildinfo
@@ -37,3 +34,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat
