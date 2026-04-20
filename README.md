@@ -143,4 +143,4 @@ The dataset contains 70 transactions spanning January through June 2025, represe
 
 ## Known Limitations
 
-The application has no backend integration — all data is client-side mock data and any transactions added during a session are stored only in localStorage. Role switching is a UI simulation with no authentication layer. The Recharts bundle adds approximately 158KB gzipped, which is standard for a data-heavy dashboard but worth noting for performance-sensitive contexts.
+The application has no backend integration — all data is client side mock data and any transactions added during a session are stored only in localStorage also. Role switching is a UI simulation with no authentication layer. The Recharts bundle adds approximately 158KB gzipped, which is standard for a data-heavy dashboard but worth noting for performance-sensitive contexts.
